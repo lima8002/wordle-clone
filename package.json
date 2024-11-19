@@ -17,6 +17,9 @@
   "dependencies": {
     "@expo-google-fonts/frank-ruhl-libre": "^0.2.3",
     "@expo/vector-icons": "^14.0.2",
+    "@gorhom/bottom-sheet": "^5.0.6",
+    "@jsamr/counter-style": "^2.0.2",
+    "@jsamr/react-native-li": "^2.3.1",
     "@react-navigation/bottom-tabs": "^7.0.0",
     "@react-navigation/native": "^7.0.0",
     "date-fns": "^4.1.0",
