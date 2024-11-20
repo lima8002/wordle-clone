@@ -1,16 +1,16 @@
 import {
   StyleSheet,
   Text,
-  TouchableOpacity,
   useColorScheme,
   View,
+  TouchableOpacity,
 } from "react-native";
 import Icon from "@/assets/images/wordle-icon.svg";
 import { Link } from "expo-router";
 import { format } from "date-fns";
 import { Colors } from "@/constants/Colors";
 import ThemedText from "@/components/ThemedText";
-import { useRef } from "react";
+import React, { useRef } from "react";
 import { BottomSheetModal } from "@gorhom/bottom-sheet";
 import SubscribeModal from "@/components/SubscribeModal";
 
@@ -20,7 +20,7 @@ export default function Index() {
   const textColor = Colors[colorScheme ?? "light"].text;
   const subscribeModalRef = useRef<BottomSheetModal>(null);
 
-  const handlePresentSubscriberModel = () =>
+  const handlePresentSubscribeModalPress = () =>
     subscribeModalRef.current?.present();
 
   return (
@@ -51,7 +51,7 @@ export default function Index() {
 
         <TouchableOpacity
           style={[styles.btn, { borderColor: textColor }]}
-          onPress={() => handlePresentSubscriberModel()}
+          onPress={handlePresentSubscribeModalPress}
         >
           <ThemedText style={styles.btnText}>Subscribe</ThemedText>
         </TouchableOpacity>
