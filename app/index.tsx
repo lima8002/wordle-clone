@@ -10,13 +10,22 @@ import { Link } from "expo-router";
 import { format } from "date-fns";
 import { Colors } from "@/constants/Colors";
 import ThemedText from "@/components/ThemedText";
+import { useRef } from "react";
+import { BottomSheetModal } from "@gorhom/bottom-sheet";
+import SubscribeModal from "@/components/SubscribeModal";
 
 export default function Index() {
   const colorScheme = useColorScheme();
   const backgroundColor = Colors[colorScheme ?? "light"].background;
   const textColor = Colors[colorScheme ?? "light"].text;
+  const subscribeModalRef = useRef<BottomSheetModal>(null);
+
+  const handlePresentSubscriberModel = () =>
+    subscribeModalRef.current?.present();
+
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, { backgroundColor }]}>
+      <SubscribeModal ref={subscribeModalRef} />
       <View style={styles.header}>
         <Icon width={100} height={100} />
         <ThemedText style={styles.title}>Wordle</ThemedText>
@@ -29,7 +38,7 @@ export default function Index() {
         <Link href={"/game"} asChild style={styles.btn}>
           <TouchableOpacity
             style={{
-              backgroundColor,
+              backgroundColor: colorScheme === "light" ? "#000" : "#4a4a4a",
             }}
           >
             <Text style={[styles.btnText, styles.primaryText]}>Play</Text>
@@ -40,7 +49,10 @@ export default function Index() {
           <ThemedText style={styles.btnText}>Log in</ThemedText>
         </TouchableOpacity>
 
-        <TouchableOpacity style={[styles.btn, { borderColor: textColor }]}>
+        <TouchableOpacity
+          style={[styles.btn, { borderColor: textColor }]}
+          onPress={() => handlePresentSubscriberModel()}
+        >
           <ThemedText style={styles.btnText}>Subscribe</ThemedText>
         </TouchableOpacity>
       </View>
