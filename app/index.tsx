@@ -13,12 +13,14 @@ import ThemedText from "@/components/ThemedText";
 import React, { useRef } from "react";
 import { BottomSheetModal } from "@gorhom/bottom-sheet";
 import SubscribeModal from "@/components/SubscribeModal";
+import { SignedIn, SignedOut, useAuth } from "@clerk/clerk-expo";
 
 export default function Index() {
   const colorScheme = useColorScheme();
   const backgroundColor = Colors[colorScheme ?? "light"].background;
   const textColor = Colors[colorScheme ?? "light"].text;
   const subscribeModalRef = useRef<BottomSheetModal>(null);
+  const { signOut } = useAuth();
 
   const handlePresentSubscribeModalPress = () =>
     subscribeModalRef.current?.present();
@@ -45,9 +47,26 @@ export default function Index() {
           </TouchableOpacity>
         </Link>
 
-        <TouchableOpacity style={[styles.btn, { borderColor: textColor }]}>
-          <ThemedText style={styles.btnText}>Log in</ThemedText>
-        </TouchableOpacity>
+        <SignedOut>
+          <Link
+            href={"/login"}
+            asChild
+            style={[styles.btn, { borderColor: textColor }]}
+          >
+            <TouchableOpacity>
+              <ThemedText style={styles.btnText}>Log in</ThemedText>
+            </TouchableOpacity>
+          </Link>
+        </SignedOut>
+
+        <SignedIn>
+          <TouchableOpacity
+            style={[styles.btn, { borderColor: textColor }]}
+            onPress={() => signOut()}
+          >
+            <ThemedText style={styles.btnText}>Sign Out</ThemedText>
+          </TouchableOpacity>
+        </SignedIn>
 
         <TouchableOpacity
           style={[styles.btn, { borderColor: textColor }]}
