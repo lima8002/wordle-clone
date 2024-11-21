@@ -58,7 +58,12 @@ const Page = () => {
         ))}
       </View>
 
-      <OnScreenKeyboard />
+      <OnScreenKeyboard
+        onKeyPressed={addKey}
+        greenLetters={greenLetters}
+        yellowLetters={yellowLetters}
+        grayLetters={grayLetters}
+      />
     </View>
   );
 };
@@ -93,6 +98,6 @@ const styles = StyleSheet.create({
     fontSize: 30,
     fontWeight: "bold",
     textTransform: "uppercase",
-    textAlign: "center",
+    // textAlign: "center",
   },
 });
