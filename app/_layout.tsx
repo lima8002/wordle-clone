@@ -12,7 +12,7 @@ import {
   DefaultTheme,
   ThemeProvider,
 } from "@react-navigation/native";
-import { TouchableOpacity, useColorScheme } from "react-native";
+import { Platform, TouchableOpacity, useColorScheme, Text } from "react-native";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { BottomSheetModalProvider } from "@gorhom/bottom-sheet";
 import { ClerkProvider, ClerkLoaded } from "@clerk/clerk-expo";
@@ -20,6 +20,10 @@ import { tokenCache } from "@/utils/cache";
 import Logo from "@/assets/images/nyt-logo.svg";
 import { Ionicons } from "@expo/vector-icons";
 import { Colors } from "@/constants/Colors";
+
+// // This is simple solution to ignore all logs in React Native
+// import { LogBox } from "react-native";
+// LogBox.ignoreAllLogs();
 
 const publishableKey = process.env.EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY!;
 
@@ -81,6 +85,46 @@ export default function RootLayout() {
                         />
                       </TouchableOpacity>
                     ),
+                  }}
+                />
+                <Stack.Screen
+                  name="game"
+                  options={{
+                    headerBackTitle: "Wordle",
+                    headerTintColor: colorScheme === "dark" ? "#fff" : "#000",
+                    title: "",
+                    headerBackTitleStyle: {
+                      fontSize: 26,
+                      fontFamily: "FrankRuhlLibre_800ExtraBold",
+                    },
+                    headerLeft:
+                      Platform.OS === "android"
+                        ? ({ tintColor }) => (
+                            <TouchableOpacity
+                              onPress={() => router.back()}
+                              style={{
+                                flexDirection: "row",
+                                alignItems: "center",
+                              }}
+                            >
+                              <Ionicons
+                                name="chevron-back"
+                                size={26}
+                                color={tintColor}
+                              />
+                              <Text
+                                style={{
+                                  marginLeft: 5,
+                                  fontSize: 26,
+                                  fontFamily: "FrankRuhlLibre_800ExtraBold",
+                                  color: tintColor,
+                                }}
+                              >
+                                Wordle
+                              </Text>
+                            </TouchableOpacity>
+                          )
+                        : undefined, // Use default iOS behavior
                   }}
                 />
               </Stack>
