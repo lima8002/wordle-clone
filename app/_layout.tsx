@@ -127,6 +127,14 @@ export default function RootLayout() {
                         : undefined, // Use default iOS behavior
                   }}
                 />
+                <Stack.Screen
+                  name="end"
+                  options={{
+                    title: "",
+                    headerShadowVisible: false,
+                    presentation: "fullScreenModal",
+                  }}
+                />
               </Stack>
             </BottomSheetModalProvider>
           </GestureHandlerRootView>

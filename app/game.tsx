@@ -7,7 +7,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { allWords } from "@/utils/allWords";
 import { words } from "@/utils/targetWords";
 
-const ROWS = 6;
+const ROWS = 1;
 
 const Page = () => {
   const router = useRouter();
@@ -99,9 +99,14 @@ const Page = () => {
     setTimeout(() => {
       if (currentWord === word) {
         console.log("Congratulations, you won!");
-        // goto screen
+        router.push(
+          `/end?win=true&word=${word}&gameField=${JSON.stringify(rows)}`
+        );
       } else if (curRow + 1 >= rows.length) {
         console.log("Game over, you lost!");
+        router.push(
+          `/end?win=false&word=${word}&gameField=${JSON.stringify(rows)}`
+        );
       }
     }, 0);
 
