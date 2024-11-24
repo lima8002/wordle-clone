@@ -2,7 +2,7 @@ import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyDU7b2TeW3wIaTE9TqT7y6l11gWcu2duYY",
+  apiKey: "apikey",
   authDomain: "wordle-clone-4d1ca.firebaseapp.com",
   projectId: "wordle-clone-4d1ca",
   storageBucket: "wordle-clone-4d1ca.firebasestorage.app",
