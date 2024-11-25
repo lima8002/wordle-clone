@@ -1,10 +1,10 @@
 import { StyleSheet, Text, TouchableOpacity, View, Image } from "react-native";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useLocalSearchParams, useRouter } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
 import { Colors } from "@/constants/Colors";
 import Icon from "@/assets/images/wordle-icon.svg";
-import { SignedIn, SignedOut } from "@clerk/clerk-expo";
+import { SignedIn, SignedOut, useUser } from "@clerk/clerk-expo";
 import * as MailComposer from "expo-mail-composer";
 
 const Page = () => {
@@ -15,11 +15,19 @@ const Page = () => {
   }>();
 
   const router = useRouter();
-  const [userScore, setUserScore] = useState<any>({
-    played: 42,
-    wins: 2,
-    currentStreak: 1,
-  });
+  const [userScore, setUserScore] = useState<any>();
+  const { user } = useUser();
+
+  useEffect(() => {
+    if (user) {
+      updateHighScore();
+    }
+  }, [user]);
+
+  const updateHighScore = async () => {
+    console.log("Updating high score", user);
+    if (!user) return;
+  };
 
   const shareGame = () => {
     const game = JSON.parse(gameField!);
@@ -129,15 +137,15 @@ const Page = () => {
           <Text style={styles.text}>Statistics</Text>
           <View style={styles.stats}>
             <View>
-              <Text style={styles.score}>{userScore.played}</Text>
+              <Text style={styles.score}>{userScore?.played}</Text>
               <Text>Played</Text>
             </View>
             <View>
-              <Text style={styles.score}>{userScore.wins}</Text>
+              <Text style={styles.score}>{userScore?.wins}</Text>
               <Text>Wins</Text>
             </View>
             <View>
-              <Text style={styles.score}>{userScore.currentStreak}</Text>
+              <Text style={styles.score}>{userScore?.currentStreak}</Text>
               <Text>Current Streak</Text>
             </View>
           </View>
