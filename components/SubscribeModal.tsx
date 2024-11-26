@@ -14,7 +14,7 @@ import MarkedList from "@jsamr/react-native-li";
 import disc from "@jsamr/counter-style/lib/es/presets/disc";
 import { defaultStyles } from "@/constants/Styles";
 
-type Ref = BottomSheetModal;
+export type Ref = BottomSheetModal;
 
 const BENEFITS = [
   "Enjoy full access to Wordle, Spelling Bee, The Crossword and more.",

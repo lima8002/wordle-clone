@@ -1,4 +1,10 @@
-import { StyleSheet, Text, useColorScheme, View } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  useColorScheme,
+  View,
+} from "react-native";
 import React, { useRef, useState } from "react";
 import { Colors } from "@/constants/Colors";
 import { useRouter, Stack } from "expo-router";
@@ -6,6 +12,8 @@ import OnScreenKeyboard from "@/components/OnScreenKeyboard";
 import { Ionicons } from "@expo/vector-icons";
 import { allWords } from "@/utils/allWords";
 import { words } from "@/utils/targetWords";
+import { BottomSheetModal } from "@gorhom/bottom-sheet";
+import SettingsModal from "@/components/SettingsModal";
 
 const ROWS = 1;
 
@@ -25,6 +33,9 @@ const Page = () => {
   const [greenLetters, setGreenLetters] = useState<string[]>([]);
   const [yellowLetters, setYellowLetters] = useState<string[]>([]);
   const [grayLetters, setGrayLetters] = useState<string[]>([]);
+
+  const settingsModalRef = useRef<BottomSheetModal>(null);
+  const handlePresentSettingsModal = () => settingsModalRef.current?.present();
 
   // const [word, setWord] = useState<string>(
   //   words[Math.floor(Math.random() * words.length)]
@@ -138,6 +149,7 @@ const Page = () => {
 
   return (
     <View style={[styles.container, { backgroundColor }]}>
+      <SettingsModal ref={settingsModalRef} />
       <Stack.Screen
         options={{
           headerRight: () => (
@@ -148,7 +160,9 @@ const Page = () => {
                 color={textColor}
               />
               <Ionicons name="podium-outline" size={28} color={textColor} />
-              <Ionicons name="settings-sharp" size={28} color={textColor} />
+              <TouchableOpacity onPress={handlePresentSettingsModal}>
+                <Ionicons name="settings-sharp" size={28} color={textColor} />
+              </TouchableOpacity>
             </View>
           ),
         }}

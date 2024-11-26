@@ -68,14 +68,8 @@ export default function RootLayout() {
                   name="login"
                   options={{
                     presentation: "modal",
+                    headerTitle: () => <Logo width={150} height={40} />,
                     headerShadowVisible: false,
-                    headerTitle: () => (
-                      <Logo
-                        width={150}
-                        height={40}
-                        style={{ alignItems: "center" }}
-                      />
-                    ),
                     headerLeft: () => (
                       <TouchableOpacity onPress={() => router.back()}>
                         <Ionicons
@@ -92,39 +86,11 @@ export default function RootLayout() {
                   options={{
                     headerBackTitle: "Wordle",
                     headerTintColor: colorScheme === "dark" ? "#fff" : "#000",
-                    title: "",
                     headerBackTitleStyle: {
-                      fontSize: 26,
                       fontFamily: "FrankRuhlLibre_800ExtraBold",
+                      fontSize: 26,
                     },
-                    headerLeft:
-                      Platform.OS === "android"
-                        ? ({ tintColor }) => (
-                            <TouchableOpacity
-                              onPress={() => router.back()}
-                              style={{
-                                flexDirection: "row",
-                                alignItems: "center",
-                              }}
-                            >
-                              <Ionicons
-                                name="chevron-back"
-                                size={26}
-                                color={tintColor}
-                              />
-                              <Text
-                                style={{
-                                  marginLeft: 5,
-                                  fontSize: 26,
-                                  fontFamily: "FrankRuhlLibre_800ExtraBold",
-                                  color: tintColor,
-                                }}
-                              >
-                                Wordle
-                              </Text>
-                            </TouchableOpacity>
-                          )
-                        : undefined, // Use default iOS behavior
+                    title: "",
                   }}
                 />
                 <Stack.Screen

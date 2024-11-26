@@ -6,6 +6,8 @@ import { Colors } from "@/constants/Colors";
 import Icon from "@/assets/images/wordle-icon.svg";
 import { SignedIn, SignedOut, useUser } from "@clerk/clerk-expo";
 import * as MailComposer from "expo-mail-composer";
+import { doc, getDoc, setDoc } from "firebase/firestore";
+import { FIRESTORE_DB } from "@/utils/FirebaseConfig";
 
 const Page = () => {
   const { win, word, gameField } = useLocalSearchParams<{
@@ -27,6 +29,35 @@ const Page = () => {
   const updateHighScore = async () => {
     console.log("Updating high score", user);
     if (!user) return;
+
+    const docRef = doc(FIRESTORE_DB, `highscore/${user.id}`);
+    const docSnap = await getDoc(docRef);
+
+    let newScore = {
+      played: 1,
+      wins: win === "true" ? 1 : 0,
+      lastGame: win === "true" ? "win" : "loss",
+      currentStreak: win === "true" ? 1 : 0,
+    };
+
+    if (docSnap.exists()) {
+      const data = docSnap.data();
+
+      newScore = {
+        played: data.played + 1,
+        wins: win === "true" ? data.wins + 1 : data.wins,
+        lastGame: win === "true" ? "win" : "loss",
+        currentStreak:
+          win === "true" && data.lastGame === "win"
+            ? data.currentStreak + 1
+            : win === "true"
+            ? 1
+            : 0,
+      };
+    }
+
+    await setDoc(docRef, newScore);
+    setUserScore(newScore);
   };
 
   const shareGame = () => {
