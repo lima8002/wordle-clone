@@ -10,7 +10,7 @@ import { Link } from "expo-router";
 import { format } from "date-fns";
 import { Colors } from "@/constants/Colors";
 import ThemedText from "@/components/ThemedText";
-import React, { useRef } from "react";
+import React, { useCallback, useRef } from "react";
 import { BottomSheetModal } from "@gorhom/bottom-sheet";
 import SubscribeModal from "@/components/SubscribeModal";
 import { SignedIn, SignedOut, useAuth } from "@clerk/clerk-expo";
@@ -22,8 +22,19 @@ export default function Index() {
   const subscribeModalRef = useRef<BottomSheetModal>(null);
   const { signOut } = useAuth();
 
-  const handlePresentSubscribeModalPress = () =>
-    subscribeModalRef.current?.present();
+  // const handlePresentSubscribeModalPress = () => {
+  //   subscribeModalRef.current?.present();
+  // };
+
+  const handlePresentSubscribeModalPress = useCallback(() => {
+    console.log("Attempting to present subscriber modal");
+    console.log("subscribeModalRef:", subscribeModalRef.current);
+    if (subscribeModalRef.current) {
+      subscribeModalRef.current.present();
+    } else {
+      console.log("subscribeModalRef is null");
+    }
+  }, []);
 
   return (
     <View style={[styles.container, { backgroundColor }]}>

@@ -12,7 +12,13 @@ import {
   DefaultTheme,
   ThemeProvider,
 } from "@react-navigation/native";
-import { Platform, TouchableOpacity, useColorScheme, Text } from "react-native";
+import {
+  Platform,
+  TouchableOpacity,
+  useColorScheme,
+  Text,
+  Appearance,
+} from "react-native";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { BottomSheetModalProvider } from "@gorhom/bottom-sheet";
 import { ClerkProvider, ClerkLoaded } from "@clerk/clerk-expo";
@@ -20,6 +26,8 @@ import { tokenCache } from "@/utils/cache";
 import Logo from "@/assets/images/nyt-logo.svg";
 import { Ionicons } from "@expo/vector-icons";
 import { Colors } from "@/constants/Colors";
+import { useMMKVBoolean } from "react-native-mmkv";
+import { storage } from "@/components/storage";
 
 // // This is simple solution to ignore all logs in React Native
 // import { LogBox } from "react-native";
@@ -38,6 +46,13 @@ SplashScreen.preventAutoHideAsync();
 export default function RootLayout() {
   const router = useRouter();
   const colorScheme = useColorScheme();
+
+  const [dark] = useMMKVBoolean("dark-mode", storage);
+
+  useEffect(() => {
+    Appearance.setColorScheme(dark ? "dark" : "light");
+  }, [dark]);
+
   const [fontsLoaded, error] = useFonts({
     FrankRuhlLibre_800ExtraBold,
     FrankRuhlLibre_500Medium,

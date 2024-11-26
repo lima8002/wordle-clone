@@ -5,7 +5,7 @@ import {
   useColorScheme,
   View,
 } from "react-native";
-import React, { useRef, useState } from "react";
+import React, { useCallback, useRef, useState } from "react";
 import { Colors } from "@/constants/Colors";
 import { useRouter, Stack } from "expo-router";
 import OnScreenKeyboard from "@/components/OnScreenKeyboard";
@@ -35,7 +35,19 @@ const Page = () => {
   const [grayLetters, setGrayLetters] = useState<string[]>([]);
 
   const settingsModalRef = useRef<BottomSheetModal>(null);
-  const handlePresentSettingsModal = () => settingsModalRef.current?.present();
+  // const handlePresentSettingsModal = () => {
+  //   settingsModalRef.current?.present();
+  // };
+
+  const handlePresentSettingsModal = useCallback(() => {
+    console.log("Attempting to present settings modal");
+    console.log("settingsModalRef:", settingsModalRef.current);
+    if (settingsModalRef.current) {
+      settingsModalRef.current.present();
+    } else {
+      console.log("settingsModalRef is null");
+    }
+  }, []);
 
   // const [word, setWord] = useState<string>(
   //   words[Math.floor(Math.random() * words.length)]
@@ -44,14 +56,12 @@ const Page = () => {
   const wordLetters = word.split("");
 
   const colStateRef = useRef(curCol);
-  const setCurCol = (col: number) => {
-    colStateRef.current = col;
-    _setCurCol(col);
+  const setCurCol = (data: number) => {
+    colStateRef.current = data;
+    _setCurCol(data);
   };
 
   const addKey = (key: string) => {
-    console.log("Add key:", key);
-
     const newRows = [...rows.map((row) => [...row])];
 
     if (key === "ENTER") {
