@@ -114,6 +114,10 @@ export default function RootLayout() {
                     title: "",
                     headerShadowVisible: false,
                     presentation: "fullScreenModal",
+                    headerBackTitleStyle: {
+                      fontFamily: "FrankRuhlLibre_800ExtraBold",
+                      fontSize: 26,
+                    },
                   }}
                 />
               </Stack>

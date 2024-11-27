@@ -35,19 +35,9 @@ const Page = () => {
   const [grayLetters, setGrayLetters] = useState<string[]>([]);
 
   const settingsModalRef = useRef<BottomSheetModal>(null);
-  // const handlePresentSettingsModal = () => {
-  //   settingsModalRef.current?.present();
-  // };
-
-  const handlePresentSettingsModal = useCallback(() => {
-    console.log("Attempting to present settings modal");
-    console.log("settingsModalRef:", settingsModalRef.current);
-    if (settingsModalRef.current) {
-      settingsModalRef.current.present();
-    } else {
-      console.log("settingsModalRef is null");
-    }
-  }, []);
+  const handlePresentSettingsModal = () => {
+    settingsModalRef.current?.present();
+  };
 
   // const [word, setWord] = useState<string>(
   //   words[Math.floor(Math.random() * words.length)]
