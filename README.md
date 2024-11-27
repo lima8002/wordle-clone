@@ -1,6 +1,18 @@
 # Welcome to your Expo app 👋
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app). This app is based on an YouTube video used for learning purposes. The main goal doing this app, is to learn more about TypeScript.
+This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+
+This app is based on an YouTube video used for learning purposes.
+The main goal doing this app, is to learn more about TypeScript.
+
+Technologies used:
+
+- [TypeScript](https://www.typescriptlang.org/): A typed superset of JavaScript that compiles to plain JavaScript.
+- [React Native](https://reactnative.dev/): A framework for building native apps using React.
+- [Expo](https://expo.dev/): A set of tools and services that help you build, deploy, and maintain React Native apps.
+- [React Navigation](https://reactnavigation.org/): A declarative navigation library for React Native.
+- [React Native Elements](https://react-native-elements.github.io/): Cross-platform React Native UI Toolkit.
+- [Axios](https://axios-http.com/): Promise-based HTTP client for the browser and node.js.
 
 ## Get started
 
